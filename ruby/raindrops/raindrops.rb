@@ -1,22 +1,17 @@
+require 'prime'
+
 class Raindrops
   def self.convert(number)
 
-
-
-    if number % 3 == 0 && number % 5 == 0
-      'PlingPlang'
-    elsif number % 3 == 0 && number % 7 == 0
-        'PlingPlong'
-    elsif number % 5 == 0 && number % 7 == 0
-          'PlangPlong'
-    elsif number % 3 == 0
-      'Pling'
-    elsif number % 5 == 0
-      'Plang'
-    elsif number % 7 == 0
-      'Plong'
-    else number == 1
-      number.to_s
+    factors = Prime.prime_division(number).map do |factor|
+      factor[0]
     end
+
+    drops = ""
+
+    drops << "Pling" if factors.include?(3)
+    drops << "Plang" if factors.include?(5)
+    drops << "Plong" if factors.include?(7)
+    drops.size == 0 ? number.to_s : drops
   end
 end
